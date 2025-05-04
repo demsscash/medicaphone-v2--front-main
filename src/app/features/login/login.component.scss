@@ -1,0 +1,251 @@
+@use "./variables" as *;
+@use "./mixins" as *;
+
+* {
+  font-family: $font-family-main;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.login-container {
+  display: flex;
+  height: 100vh;
+  background-color: $white;
+  overflow: hidden;
+}
+
+.login-left {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.brand {
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  z-index: 2;
+
+  .logo {
+    width: 150px;
+    height: auto;
+  }
+}
+
+.illustration {
+  position: relative;
+  max-width: auto;
+  width: 100%;
+
+  .medical-illustration {
+    max-width: 95%;
+    height: auto;
+    object-fit: contain;
+    overflow: hidden;
+  }
+}
+
+.login-right {
+  flex: 1;
+  padding-right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 5rem;
+  padding: 0 2rem;
+}
+
+.practitioner-btn {
+  @include outline-button;
+  height: 40px;
+  color: #5B74EA;
+  font-size: 0.9rem;
+}
+
+.menu-btn {
+  @include icon-button;
+  width: 40px;
+  height: 40px;
+}
+
+.welcome-text {
+  color: #5B74EA;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  font-weight: $font-weight-medium;
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: $primary-color;
+}
+
+.title {
+  font-size: 2rem;
+  color: $secondary-color;
+  margin-bottom: 2.5rem;
+  font-weight: $font-weight-bold;
+}
+
+.user-types {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  width: 100%;
+}
+
+.user-type {
+  height: 45px;
+  padding: 0 1.5rem;
+  border: 1px solid #556CEA;
+  border-radius: 8px;
+  cursor: pointer;
+  background: transparent;
+  color: #556CEA;
+  font-weight: 500;
+  font-size: 0.9rem;
+  flex: 1;
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &.active {
+    background: $primary-gradient;
+    color: $white;
+    border: none;
+  }
+
+  &:hover {
+    opacity: 0.95;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  position: relative;
+  width: 100%;
+}
+
+.form-control {
+  width: 100%;
+  height: 50px;
+  padding: 0 1.25rem;
+  border: 1px solid $border-light;
+  border-radius: $border-radius-small;
+  font-size: 0.9rem;
+  background: $light-bg;
+
+  &::placeholder {
+    color: #95A5A6;
+  }
+
+  &:focus {
+    border-color: $primary-color;
+    outline: none;
+    background: $white;
+  }
+}
+
+.password-toggle {
+  position: absolute;
+  right: 1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: $text-color;
+}
+
+.options {
+  display: flex;
+  justify-content: space-between;
+  font-size: $font-size-14;
+  margin-bottom: 20px;
+  color: #7F8C8D;
+
+  a {
+    text-decoration: none;
+    color: #7F8C8D;
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+}
+
+.submit-btn {
+  @include primary-button;
+  width: 100%;
+  height: 50px;
+  font-size: 0.95rem;
+
+  &:hover {
+    opacity: 0.95;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .login-container {
+    flex-direction: column;
+  }
+
+  .login-left {
+    display: none;
+  }
+
+  .login-right {
+    padding: 1rem;
+  }
+
+  .header-actions {
+    padding: 0 1rem;
+    margin-bottom: 3rem;
+  }
+
+  .user-types {
+    flex-wrap: wrap;
+  }
+
+  .user-type {
+    min-width: 100px;
+  }
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+input.ng-invalid.ng-touched {
+  border-color: red;
+}

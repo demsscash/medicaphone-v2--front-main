@@ -1,0 +1,77 @@
+// _variables.scss - Fichier de variables globales
+
+// Couleurs
+$primary-color: rgba(77, 99, 233, 1);
+$secondary-color: rgba(26, 30, 66, 1);
+$light-bg: rgba(243, 247, 254, 1);
+$text-color: #1A1E42;
+$active-bg: rgba(240, 245, 254, 0.5);
+$white: white;
+$shadow-color: rgba(81, 103, 234, 0.12);
+$border-color: #7894ED;
+$icon-color: #707EAE; 
+$border-light: #e9ecef;
+$menu-color:rgba(26, 30, 66, 0.6);
+$input-label: rgba(18, 18, 43, 0.58);
+$text-color-button: rgba(85, 108, 234, 1);
+
+// Gradients
+$primary-gradient: linear-gradient(96.56deg, #A5CBF2 -20.93%, #4D63E9 112.66%);
+$linear-gradient:linear-gradient(92.51deg, #4D63E9 10.46%, #929FF1 89.36%);
+$terminate-gradient: linear-gradient(96.56deg, #4DE9B1 -20.93%, #A5F2B1 112.66%);
+$cancel-gradient: linear-gradient(96.56deg, #dd3737 -20.93%, #ff7c74 112.66%);
+$consultation-gradient: linear-gradient(97.12deg, #e9ab4d 2.08%, #ffda7b 103.08%);
+$attente-gradient: linear-gradient(96.56deg, #37abdd -20.93%, #a5e4f2 112.66%);
+$medicament-gradient: linear-gradient(96.56deg, #4D63E9 -20.93%, #A5CBF2 112.66%);
+$dosage-gradient: linear-gradient(96.56deg, #37ABDD -20.93%, #A5E4F2 112.66%);
+
+
+// Typographie
+$font-family-main: "Montserrat", sans-serif;
+$font-size-small: 16px;
+$font-size-14: 14px;
+$font-size-12: 12px;
+$font-size-22: 22px;
+$font-size-18: 18px;
+$font-size-medium: 17px;
+$font-size-large: 24px;
+$font-size-extralarge: 60px;
+$font-weight-medium: 500;
+$font-weight-small: 400;
+$font-weight-semibold: 550;
+$font-weight-bold: 600;
+$font-weight-extrabold: 700;
+
+// Dimensions
+$sidebar-width: 260px;
+$border-radius-small: 8px;
+$border-radius-medium: 10px;
+
+// Espacements
+$spacing-xxs: 2px;
+$spacing-xs: 5px;
+$spacing-sm: 8px;
+$spacing-md: 10px;
+$spacing-lg: 15px;
+$spacing-xl: 20px;
+$spacing-xxl: 30px;
+$spacing-xxxl: 40px;
+
+// Ombres
+$box-shadow-light: 0 2px 5px rgba(0, 0, 0, 0.05);
+$box-shadow-main: 0px 4px 44px 0px $shadow-color;
+
+
+// Transitions
+$transition-standard: all 0.3s ease;
+$transition-fast: all 0.2s ease;
+
+// Breakpoints pour les media queries
+$breakpoint-xs: 320px;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+//background image
+$background-image: url('/assets/images/background.png');

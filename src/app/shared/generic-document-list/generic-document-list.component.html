@@ -1,0 +1,73 @@
+<div class="loading-spinner-container" *ngIf="loading">
+    <img src="assets/images/loader.gif" alt="Chargement en cours" class="loading-spinner">
+</div>
+<div class="documents-container" *ngIf="!loading">
+    <div class="documents-header">
+        <h2>{{ title }}</h2>
+        <div class="header-buttons">
+            <button class="btn" title="Afficher les documents">
+                {{ title }}
+            </button>
+            <button class="btn-ajouter" title="Ajouter un nouveau document" (click)="add.emit()">
+                Ajouter
+                <span class="plus-icon">+</span>
+            </button>
+        </div>
+    </div>
+    <div class="search-and-table-wrapper">
+        <div class="search-container">
+            <div class="search-box">
+                <img src="assets/svg/recherche-icon.svg" alt="Rechercher" width="15" height="15" />
+                <input type="text" placeholder="Rechercher" (input)="onInputChange($event)" />
+            </div>
+        </div>
+        <div class="documents-table">
+            <table class="table-content">
+                <thead class="table-header">
+                    <tr>
+                        @for (col of columns; track col.key) {
+                        <th>{{ col.label }}</th>
+                        }
+                        <th class="col-actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                    @for (doc of filteredDocuments; track doc.id) {
+                    <tr>
+                        @for (col of columns; track col.key) {
+                        <td class="file-cell">
+                            @if(col.label==='Fichiers'){
+                            <div class="file-cell">
+                                <img src="assets/svg/imagerie-icon.svg" height="18px" class="icon-image" />
+                                <span class="file-name">{{ doc[col.key] }}{{ doc.fichier?.extension }}</span>
+                            </div>
+                            }@else if (col.key === 'creationDate') {
+                            {{ doc[col.key] | date:'dd/MM/yyyy' }}
+                            } @else {
+                            {{ doc[col.key] }}
+                            }
+                        </td>
+                        }
+                        <td class="col-actions">
+                            <img src="assets/svg/view-icon.svg" (click)="view.emit(doc)" title="Voir enregistrement" />
+                            @if (doc.fichier) {
+                            <img src="assets/svg/download.svg" (click)="download.emit(doc)" title="Télécharger"
+                                width="20" height="20" />
+                            }
+                            <img src="assets/svg/edit-icon.svg" (click)="edit.emit(doc)" title="Modifier" width="15"
+                                height="15" />
+                            <img src="assets/svg/delete-icon.svg" (click)="delete.emit(doc.id)" title="Supprimer"
+                                width="20" height="20" />
+                        </td>
+                    </tr>
+                    }
+                    @if (filteredDocuments.length === 0) {
+                    <tr>
+                        <td [colSpan]="columns.length + 1" class="no-data">Aucun document disponible</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

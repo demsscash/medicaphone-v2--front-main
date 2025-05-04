@@ -1,0 +1,23 @@
+{
+    "MENU": {
+      "Tableau de bord": "Tableau de bord",
+      "Bilan de santé": "Bilan de santé",
+      "Personnels": "Personnels",
+      "Agenda": "Agenda",
+      "Rendez-vous": "Rendez-vous",
+      "Salle d'attente": "Salle d'attente",
+      "Patients": "Patients",
+      "Dossier Électronique": "Dossier Électronique",
+      "Imagerie": "Imagerie",
+      "Ordonnances": "Ordonnances",
+      "Analyses": "Analyses",
+      "Rapport": "Rapport",
+      "Cabinets": "Cabinets",
+      "Vidéo consultation": "Vidéo consultation",
+      "Cabinet": "Cabinet",
+      "Médicaments": "Médicaments",
+      "Actes": "Actes",
+      "Factures": "Factures",
+      "Archive": "Archive"
+    }
+  }

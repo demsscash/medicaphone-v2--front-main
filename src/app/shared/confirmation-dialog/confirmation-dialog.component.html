@@ -1,0 +1,9 @@
+<div class="confirmation-dialog" *ngIf="visible">
+    <div class="dialog-content">
+        <p>{{ message }}</p>
+        <div class="dialog-actions">
+            <button class="btn-annuler" (click)="onCancel()">Annuler</button>
+            <button class="btn-ok" (click)="onConfirm()">OK</button>
+        </div>
+    </div>
+</div>

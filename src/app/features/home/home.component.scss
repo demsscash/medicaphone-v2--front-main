@@ -1,0 +1,67 @@
+/* app.component.scss */
+/* Variables de largeur pour la sidebar */
+$sidebar-expanded-width: 280px;
+$sidebar-collapsed-width: 50px;
+$breakpoint-lg: 992px;
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f8f9fe;
+}
+
+.sidebar {
+  width: $sidebar-expanded-width;
+  position: fixed;
+  height: 100vh;
+  background: white;
+  border-right: 1px solid #e9ecef;
+  z-index: 100;
+  transition: width 0.3s ease;
+  &.collapsed {
+    width: $sidebar-collapsed-width;
+  }
+}
+
+.main-content {
+  flex: 1;
+  margin-left: $sidebar-expanded-width;
+  min-height: 100vh;
+  transition: margin-left 0.3s ease;
+  
+  &.sidebar-collapsed {
+    margin-left: $sidebar-collapsed-width;
+  }
+  .content {
+    padding-left: 20px;
+  }
+}
+
+/* Responsive */
+@media (max-width: $breakpoint-lg) {
+  .sidebar {
+    width: $sidebar-collapsed-width;
+    /* Ne pas masquer la sidebar, mais la réduire */
+    /* transform: translateX(-100%); - Supprimer cette ligne */
+  }
+  
+  .main-content {
+    margin-left: $sidebar-collapsed-width;
+  }
+}
+
+/* Si vous souhaitez toujours avoir la possibilité de masquer complètement la sidebar sur mobile */
+@media (max-width: 576px) {
+  .sidebar {
+    width: $sidebar-collapsed-width; /* Largeur réduite */
+    transform: translateX(0); /* Ne pas masquer */
+    
+    &.show {
+      width: $sidebar-expanded-width; /* Retour à la largeur complète si .show est présent */
+    }
+  }
+  
+  .main-content {
+    margin-left: $sidebar-collapsed-width; /* Garder la marge */
+  }
+}

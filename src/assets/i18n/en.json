@@ -1,0 +1,23 @@
+{
+    "MENU": {
+      "Tableau de bord": "Dashboard",
+      "Bilan de santé": "Health Assessment",
+      "Personnels": "Staff",
+      "Agenda": "Schedule",
+      "Rendez-vous": "Appointments",
+      "Salle d'attente": "Waiting Room",
+      "Patients": "Patients",
+      "Dossier Électronique": "Electronic Record",
+      "Imagerie": "Imagery",
+      "Ordonnances": "Prescriptions",
+      "Analyses": "Analyses",
+      "Rapport": "Report",
+      "Cabinets": "Offices",
+      "Vidéo consultation": "Video Consultation",
+      "Cabinet": "Office",
+      "Médicaments": "Medications",
+      "Actes": "Procedures",
+      "Factures": "Invoices",
+      "Archive": "Archive"
+    }
+  }

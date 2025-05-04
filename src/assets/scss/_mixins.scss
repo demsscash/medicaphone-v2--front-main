@@ -1,0 +1,186 @@
+// Mixins pour les styles réutilisables
+@use "./variables" as *;
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin button-base {
+  padding: $spacing-md;
+  border-radius: $border-radius-small;
+  cursor: pointer;
+  transition: $transition-standard;
+  font-weight: $font-weight-bold;
+}
+
+@mixin primary-button {
+  @include button-base;
+  background: linear-gradient(135deg, #9FC3F1, #4D63E9);;
+  color: $white;
+  border: none;
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}
+
+@mixin outline-button {
+  @include button-base;
+  background-color: $white;
+  color: $primary-color;
+  border: 0.87px solid $border-color;
+
+  &:hover {
+    background-color: $light-bg;
+  }
+}
+
+@mixin icon-button {
+  background: none;
+  border: none;
+  padding: $spacing-xs;
+  cursor: pointer;
+  color: $icon-color;
+  border-radius: $border-radius-small;
+  transition: $transition-fast;
+  @include flex-center;
+  justify-content: center;
+
+  &:hover {
+    background-color: $light-bg;
+  }
+}
+
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $light-bg;
+    border-radius: $border-radius-medium;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $light-bg;
+  }
+}
+// pagination
+@mixin pagination {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+  gap: 10px;
+
+  .pagination-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35.000000000000135px;
+    height: 35.000000000000135px;
+    border: none;
+    background-color: #FFFFFF;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #637DEC;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(96.56deg, #A5CBF2 -20.93%, #4D63E9 112.66%);
+      color: #FFFFFF;
+    }
+
+    &:active {
+      background: linear-gradient(96.56deg, #A5CBF2 -20.93%, #4D63E9 112.66%);
+      color: #FFFFFF;
+    }
+
+    .arrow-icon {
+      font-size: 14px;
+      color: #637DEC;
+    }
+  }
+
+  .page-numbers {
+    display: flex;
+    gap: 5px;
+    
+    .page-number {
+      width: 32px;
+      height: 32px;
+      border: none;
+      background-color: #FFFFFF;
+      border-radius: 8.66px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 14px;
+      color: #637DEC;
+
+      &:hover:not(.active) {
+        background-color: #FFFFFF;
+      }
+
+      &.active {
+        background: linear-gradient(96.56deg, #A5CBF2 -20.93%, #4D63E9 112.66%);
+        color: #FFFFFF;
+        border-radius: 8.66px;
+      }
+    }
+  }
+}
+@mixin loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+  background-image: $background-image;
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-position: center;
+  .loading-spinner {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+// Media query mixins
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == xs {
+    @media screen and (max-width: $breakpoint-xs) {
+      @content;
+    }
+  } @else if $breakpoint == sm {
+    @media screen and (max-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $breakpoint == md {
+    @media screen and (max-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $breakpoint == lg {
+    @media screen and (max-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $breakpoint == xl {
+    @media screen and (max-width: $breakpoint-xl) {
+      @content;
+    }
+  }
+}
