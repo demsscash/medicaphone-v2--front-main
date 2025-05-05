@@ -1,0 +1,59 @@
+<div class="register-container">
+    <div class="register-card">
+        <div class="register-header">
+            <h1 class="title">Bienvenue</h1>
+            <h2 class="subtitle">Courrier Dictée</h2>
+        </div>
+
+        <form #registerForm="ngForm" (ngSubmit)="onSubmit($event)">
+            <div class="form-group">
+                <input type="email" placeholder="Entrer votre email" class="form-control" [(ngModel)]="email"
+                    name="email" required email>
+            </div>
+
+            <div class="form-group password-container">
+                <input [type]="showPassword ? 'text' : 'password'" placeholder="Mot de passe" class="form-control"
+                    [(ngModel)]="password" name="password" required>
+                <img class="password-toggle" (click)="togglePasswordVisibility()" [src]="'assets/svg/oeil-icon.svg'"
+                    alt="Afficher/Masquer le mot de passe">
+            </div>
+
+            <div class="form-group password-container">
+                <input [type]="showConfirmPassword ? 'text' : 'password'" placeholder="Confirmer le mot de passe"
+                    class="form-control" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+                <img class="password-toggle" (click)="toggleConfirmPasswordVisibility()"
+                    [src]="'assets/svg/oeil-icon.svg'" alt="Afficher/Masquer le mot de passe">
+            </div>
+
+            <div class="auth-links">
+                <span>Vous avez déjà un compte?</span>
+                <a routerLink="/login" class="login-link">Connexion</a>
+            </div>
+
+            <button type="submit" class="submit-btn" [disabled]="registerForm.invalid || password !== confirmPassword">
+                Créer un compte
+            </button>
+        </form>
+
+        <div class="social-login">
+            <div class="separator">
+                <span>ou</span>
+            </div>
+
+            <button class="social-btn google-btn">
+                <img src="assets/images/google-icon.png" alt="Google">
+                <span>Créer un compte avec Google</span>
+            </button>
+
+            <button class="social-btn facebook-btn">
+                <img src="assets/images/facebook-icon.png" alt="Facebook">
+                <span>Créer un compte avec Facebook</span>
+            </button>
+
+            <button class="social-btn apple-btn">
+                <img src="assets/images/apple-icon.png" alt="Apple">
+                <span>Créer un compte avec Apple</span>
+            </button>
+        </div>
+    </div>
+</div>

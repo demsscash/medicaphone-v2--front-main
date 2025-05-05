@@ -1,52 +1,52 @@
 <div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1 class="title">Bienvenue</h1>
+      <h2 class="subtitle">Courrier Dictée</h2>
+    </div>
 
-    <div class="header-actions">
-   
- 
+    <form #loginForm="ngForm" (ngSubmit)="onSubmit($event)">
+      <div class="form-group">
+        <input type="email" placeholder="Entrer votre email" class="form-control" [(ngModel)]="email" name="email"
+          required email>
+      </div>
+
+      <div class="form-group password-container">
+        <input [type]="showPassword ? 'text' : 'password'" placeholder="Mot de passe" class="form-control"
+          [(ngModel)]="password" name="password" required>
+        <img class="password-toggle" (click)="togglePasswordVisibility()" [src]="'assets/svg/oeil-icon.svg'"
+          alt="Afficher/Masquer le mot de passe">
+      </div>
+
+      <div class="auth-links">
+        <a routerLink="/register" class="create-account-link">Créer un compte</a>
+        <a routerLink="/forgot-password" class="forgot-password-link">Mot de passe oublié?</a>
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="loginForm.invalid">
+        Connexion
+      </button>
+    </form>
+
+    <div class="social-login">
+      <div class="separator">
+        <span>ou</span>
+      </div>
+
+      <button class="social-btn google-btn">
+        <img src="assets/images/google-icon.png" alt="Google">
+        <span>Connexion avec Google</span>
+      </button>
+
+      <button class="social-btn facebook-btn">
+        <img src="assets/images/facebook-icon.png" alt="Facebook">
+        <span>Connexion avec Facebook</span>
+      </button>
+
+      <button class="social-btn apple-btn">
+        <img src="assets/images/apple-icon.png" alt="Apple">
+        <span>Connexion avec Apple</span>
+      </button>
     </div>
-    <div class="login-form">
-      
-      <h1 class="title">Se connecter</h1>
-  
-      <form #loginForm="ngForm" (ngSubmit)="onSubmit($event)">
-        <div class="form-group">
-          <input data-test-id="login-email" type="text" id="username" placeholder="Nom d'utilisateur" class="form-control" [(ngModel)]="email"
-            name="email" #usernameInput="ngModel" aria-label="Entrez votre nom d'utilisateur"
-            title="Entrez votre nom d'utilisateur" required>
-          <div *ngIf="usernameInput.invalid && usernameInput.touched" class="error-message">
-            Nom d'utilisateur requis
-          </div>
-        </div>
-        <div class="form-group password-container">
-          <input data-test-id="login-password" [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Mot de passe"
-            class="form-control" [(ngModel)]="password" name="password" #passwordInput="ngModel"
-            aria-label="Entrez votre mot de passe" title="Entrez votre mot de passe" required>
-            <img class="password-toggle" 
-            [ngClass]="{'eye-open': !showPassword, 'eye-closed': showPassword}" 
-            (click)="togglePasswordVisibility()" 
-            [src]="showPassword ? 'assets/svg/oeil-icon.svg' : 'assets/svg/oeil-icon.svg'" 
-            alt="Toggle password visibility" 
-            title="Basculer la visibilité du mot de passe"
-            width="24" height="24">
-       
-          <div *ngIf="passwordInput.invalid && passwordInput.touched" class="error-message">
-            Mot de passe requis
-          </div>
-        </div>
-        <div class="options">
-          <label>
-            <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" id="rememberMe"
-              aria-label="Rester connecté" title="Rester connecté">
-            Rester connecté
-          </label>
-          <a data-test-id="login-forgot-password" href="forgot-password" aria-label="Mot de passe oublié" title="Mot de passe oublié">
-            Mot de passe oublié ?
-          </a>
-        </div>
-        <button data-test-id="login-submit" type="submit" class="submit-btn" [disabled]="loginForm.invalid" aria-label="Se connecter"
-          title="Se connecter">
-          Se connecter
-        </button>
-      </form>
-    </div>
+  </div>
 </div>
