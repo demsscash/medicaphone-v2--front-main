@@ -1,0 +1,205 @@
+// src/app/shared/components/voice-recorder/voice-recorder.component.scss
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes wave {
+    0% {
+        height: 5px;
+    }
+
+    50% {
+        height: 15px;
+    }
+
+    100% {
+        height: 5px;
+    }
+}
+
+@keyframes cancelPulse {
+    0% {
+        color: #ff4444;
+        transform: translateY(0);
+    }
+
+    50% {
+        color: #ff0000;
+        transform: translateY(-3px);
+    }
+
+    100% {
+        color: #ff4444;
+        transform: translateY(0);
+    }
+}
+
+.voice-recorder-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    user-select: none;
+    touch-action: none;
+
+    .record-button {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #00ABC9;
+        border: none;
+        color: white;
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+
+        &:active {
+            transform: scale(0.95);
+        }
+
+        &.recording {
+            animation: pulse 1.5s ease-in-out infinite;
+            background-color: #ff4444;
+        }
+
+        &.sending {
+            background-color: #4caf50;
+        }
+    }
+
+    .recording-interface {
+        position: absolute;
+        bottom: 70px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        padding: 15px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        min-width: 200px;
+        transition: transform 0.2s ease-out;
+    }
+
+    .recording-instruction {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .cancel-indicator {
+        color: #ff4444;
+        font-size: 18px;
+        margin-bottom: 10px;
+
+        &.active {
+            animation: cancelPulse 1s ease-in-out infinite;
+        }
+    }
+
+    .recording-status {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .recording-time {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .recording-waveform {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        height: 20px;
+
+        .waveform-bar {
+            width: 3px;
+            background-color: #00ABC9;
+            border-radius: 1px;
+            height: 10px;
+
+            &:nth-child(1) {
+                animation: wave 1.0s ease-in-out infinite;
+                animation-delay: 0.0s;
+            }
+
+            &:nth-child(2) {
+                animation: wave 1.0s ease-in-out infinite;
+                animation-delay: 0.1s;
+            }
+
+            &:nth-child(3) {
+                animation: wave 1.0s ease-in-out infinite;
+                animation-delay: 0.2s;
+            }
+
+            &:nth-child(4) {
+                animation: wave 1.0s ease-in-out infinite;
+                animation-delay: 0.3s;
+            }
+
+            &:nth-child(5) {
+                animation: wave 1.0s ease-in-out infinite;
+                animation-delay: 0.4s;
+            }
+
+            &:nth-child(6) {
+                animation: wave 1.0s ease-in-out infinite;
+                animation-delay: 0.5s;
+            }
+
+            &:nth-child(7) {
+                animation: wave 1.0s ease-in-out infinite;
+                animation-delay: 0.6s;
+            }
+
+            &:nth-child(8) {
+                animation: wave 1.0s ease-in-out infinite;
+                animation-delay: 0.7s;
+            }
+        }
+    }
+}
+
+// Styles pour le support mobile
+@media (max-width: 768px) {
+    .voice-recorder-container {
+        .record-button {
+            width: 70px;
+            height: 70px;
+            font-size: 28px;
+        }
+
+        .recording-interface {
+            width: 80%;
+            max-width: 300px;
+        }
+    }
+}

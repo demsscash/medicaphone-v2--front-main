@@ -86,10 +86,10 @@
 
         <!-- Dropdown Menu -->
         <div class="dropdown-menu" *ngIf="selectedNote === note.id">
-          <button class="delete-btn">
+          <button class="delete-btn" (click)="deleteNote(note.id)">
             <i class="fas fa-trash-alt"></i> Supprimer
           </button>
-          <button class="edit-btn">
+          <button class="edit-btn" (click)="editNote(note.id)">
             <i class="fas fa-edit"></i> Modifier
           </button>
         </div>
@@ -124,7 +124,7 @@
       <p class="not-assigned" *ngIf="!note.assignedTo">Pas encore assigné</p>
 
       <!-- Download button for validated notes -->
-      <button class="download-btn" *ngIf="note.status === 'validated'">
+      <button class="download-btn" *ngIf="note.status === 'validated'" (click)="downloadPdf(note.id)">
         Télécharger le pdf
       </button>
     </div>
@@ -135,8 +135,9 @@
     <button class="action-btn write-btn">
       <i class="fas fa-pen"></i>
     </button>
-    <button class="action-btn record-btn">
-      <i class="fas fa-microphone"></i>
-    </button>
+
+    <!-- Remplacer le bouton d'enregistrement par notre composant VoiceRecorder -->
+    <app-voice-recorder (recordingComplete)="onRecordingComplete($event)" (recordingCancelled)="onRecordingCancelled()">
+    </app-voice-recorder>
   </div>
 </div>

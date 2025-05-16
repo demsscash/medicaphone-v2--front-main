@@ -171,7 +171,7 @@ $spacing-xl: 30px;
         }
 
         &.delete-btn {
-          color: $primary-color;
+          color: #ff4444;
         }
 
         &.edit-btn {
@@ -241,7 +241,6 @@ $spacing-xl: 30px;
     gap: $spacing-sm;
 
     .assignee-avatar {
-
       width: 30px;
       height: 30px;
       border-radius: 50%;
@@ -267,8 +266,7 @@ $spacing-xl: 30px;
     transition: $transition-standard;
 
     &:hover {
-      background-color: #009ab5;
-      /* Slightly darker than primary color */
+      background-color: darken($primary-color, 5%);
     }
   }
 }
@@ -279,13 +277,14 @@ $spacing-xl: 30px;
   padding: $spacing-lg;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 
   .action-btn {
-    width: 40%;
+    width: 60px;
     height: 60px;
     background-color: $white;
     border: none;
-    border-radius: 50px;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -293,10 +292,26 @@ $spacing-xl: 30px;
     color: $primary-color;
     cursor: pointer;
     transition: $transition-standard;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
     &:hover {
       background-color: $light-gray;
     }
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &.write-btn {
+      background-color: $white;
+    }
+  }
+
+  // Styles spécifiques pour le composant VoiceRecorder
+  app-voice-recorder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -317,8 +332,25 @@ $spacing-xl: 30px;
   }
 
   .action-buttons {
+    padding: $spacing-md;
+
     .action-btn {
-      width: 45%;
+      width: 55px;
+      height: 55px;
     }
+  }
+}
+
+// Styles pour le geste de glissement vertical sur mobile
+@media (max-width: 480px) {
+  .action-buttons {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba($background-color, 0.9);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 100;
   }
 }
