@@ -130,14 +130,18 @@
     </div>
   </div>
 
-  <!-- Bottom Action Buttons -->
+  <!-- Bottom Action Buttons - Style WhatsApp -->
   <div class="action-buttons">
-    <button class="action-btn write-btn">
-      <i class="fas fa-pen"></i>
-    </button>
+    <div class="buttons-container">
+      <!-- Bouton écrire (stylo) -->
+      <button class="action-btn write-btn">
+        <i class="fas fa-pen"></i>
+      </button>
 
-    <!-- Remplacer le bouton d'enregistrement par notre composant VoiceRecorder -->
-    <app-voice-recorder (recordingComplete)="onRecordingComplete($event)" (recordingCancelled)="onRecordingCancelled()">
-    </app-voice-recorder>
+      <!-- Bouton enregistrer (micro) -->
+      <app-voice-recorder (recordingComplete)="onRecordingComplete($event)"
+        (recordingCancelled)="onRecordingCancelled()">
+      </app-voice-recorder>
+    </div>
   </div>
 </div>

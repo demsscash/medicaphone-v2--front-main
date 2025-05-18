@@ -3,7 +3,7 @@
 // src/app/features/home/home.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VoiceRecorderComponent } from '../../shared/components/voice-recorder/voice-recorder.component';
+import { VoiceRecorderComponent } from '../../shared/voice-recorder/voice-recorder.component';
 import { AudioRecordingService } from '../../core/services/audio-recording.service';
 import { ToastService } from '../../core/services/toast.service';
 

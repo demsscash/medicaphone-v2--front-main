@@ -1,0 +1,41 @@
+<!-- src/app/shared/components/voice-recorder/voice-recorder.component.html -->
+<div class="voice-recorder-container">
+    <!-- Bouton d'enregistrement principal (micro) -->
+    <button class="record-button" [class.recording]="isRecording" [class.cancelling]="isCancelling"
+        [class.sending]="isSending">
+        <i class="fas" [class.fa-microphone]="isIdle || isRecording" [class.fa-trash-alt]="isCancelling"
+            [class.fa-paper-plane]="isSending"></i>
+    </button>
+
+    <!-- Overlay d'enregistrement (apparaît uniquement pendant l'enregistrement) -->
+    <div class="recording-overlay" *ngIf="isRecording || isCancelling"
+        [style.transform]="'translateY(' + slidingDistance + 'px)'">
+
+        <!-- Zone d'annulation (apparaît lors du glissement) -->
+        <div class="cancel-zone" [class.active]="isCancelling">
+            <i class="fas fa-trash-alt"></i>
+            <span class="cancel-text">Relâchez pour annuler</span>
+        </div>
+
+        <!-- Interface principale d'enregistrement -->
+        <div class="recording-interface">
+            <div class="slide-info" *ngIf="!isCancelling">
+                <i class="fas fa-chevron-left"></i>
+                <span>Glisser</span>
+            </div>
+
+            <div class="time-display">
+                <span class="timer">{{ formattedTime }}</span>
+                <div class="waveform">
+                    <!-- 15 barres pour l'animation d'onde -->
+                    <div class="bar" *ngFor="let i of [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14]"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Instruction pour annuler -->
+        <div class="slide-to-cancel" [class.sliding]="slidingProgress > 0">
+            Glissez vers la gauche pour annuler
+        </div>
+    </div>
+</div>

@@ -91,13 +91,7 @@ $spacing-xl: 30px;
 }
 
 // Notes Container
-.notes-container {
-  padding: 0 $spacing-lg;
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-lg;
-  margin-bottom: $spacing-lg;
-}
+
 
 // Note Card
 .note-card {
@@ -272,46 +266,65 @@ $spacing-xl: 30px;
 }
 
 // Bottom Action Buttons
+// Mise à jour du style des boutons d'action pour qu'ils soient centrés et sur fond bleu
+// Méthode alternative pour centrer les boutons avec une largeur fixe
 .action-buttons {
-  margin-top: auto;
-  padding: $spacing-lg;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #e8f7fb; // Fond bleu clair comme le reste de la page
+  padding: 15px 0;
+  z-index: 100;
 
-  .action-btn {
+  // Création d'un conteneur interne pour les boutons
+  .buttons-container {
+    width: 170px; // Largeur fixe pour rapprocher les boutons
+    margin: 0 auto; // Centrer le conteneur
+    display: flex;
+    justify-content: space-between; // Espacement égal dans le conteneur fixe
+    align-items: center;
+  }
+
+  .action-btn,
+  app-voice-recorder .record-button {
     width: 60px;
     height: 60px;
-    background-color: $white;
+    background-color: white;
     border: none;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 1.5rem;
-    color: $primary-color;
-    cursor: pointer;
-    transition: $transition-standard;
+    font-size: 24px;
+    color: #00ABC9; // Couleur turquoise
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-
-    &:hover {
-      background-color: $light-gray;
-    }
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.2s ease;
 
     &:active {
       transform: scale(0.95);
     }
-
-    &.write-btn {
-      background-color: $white;
-    }
   }
+}
 
-  // Styles spécifiques pour le composant VoiceRecorder
-  app-voice-recorder {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+// Ajustements pour s'assurer que le contenu ne se cache pas sous la barre fixe
+.notes-container {
+  padding-bottom: 100px;
+}
+
+// Styles pour le support mobile
+@media (max-width: 768px) {
+  .action-buttons {
+    .buttons-container {
+      width: 150px; // Légèrement plus étroit sur mobile
+    }
+
+    .action-btn,
+    app-voice-recorder .record-button {
+      width: 55px;
+      height: 55px;
+    }
   }
 }
 
@@ -327,9 +340,8 @@ $spacing-xl: 30px;
     }
   }
 
-  .notes-container {
-    padding: 0 $spacing-md;
-  }
+
+
 
   .action-buttons {
     padding: $spacing-md;
@@ -352,5 +364,87 @@ $spacing-xl: 30px;
     backdrop-filter: blur(5px);
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
     z-index: 100;
+  }
+}
+
+.action-buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f9f9f9;
+  padding: 10px 15px;
+  box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  height: 70px;
+
+  .action-btn {
+    width: 50px;
+    height: 50px;
+    background-color: $white;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: $primary-color;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    -webkit-tap-highlight-color: transparent;
+
+    &:active {
+      transform: scale(0.95);
+    }
+
+    &.write-btn {
+      background-color: $white;
+    }
+  }
+
+  // Styles pour notre composant d'enregistrement WhatsApp
+  app-voice-recorder {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  // Ajout d'un espace entre les boutons si nécessaire
+  &>* {
+    margin: 0 5px;
+  }
+}
+
+// Ajustements pour s'assurer que le contenu ne se cache pas derrière les boutons fixes
+
+
+// Styles pour le support mobile
+@media (max-width: 768px) {
+  .action-buttons {
+    padding: 8px 12px;
+    height: 65px;
+
+    .action-btn {
+      width: 45px;
+      height: 45px;
+    }
+
+    app-voice-recorder {
+      width: 45px;
+      height: 45px;
+    }
+  }
+}
+
+// Styles pour les très petits écrans
+@media (max-width: 480px) {
+  .action-buttons {
+    padding: 8px 10px;
+    height: 60px;
   }
 }

@@ -1,0 +1,252 @@
+// src/app/shared/components/voice-recorder/voice-recorder.component.scss
+:host {
+    display: block;
+    width: 100%;
+    height: 100%;
+    touch-action: none !important;
+}
+
+// Animation du micro qui pulse pendant l'enregistrement
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+// Animation onde sonore
+@keyframes waveform {
+    0% {
+        height: 5px;
+    }
+
+    50% {
+        height: 15px;
+    }
+
+    100% {
+        height: 5px;
+    }
+}
+
+.voice-recorder-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    user-select: none;
+}
+
+// Le bouton d'enregistrement principal
+.record-button {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background-color: white; // Bouton blanc au repos comme dans l'image
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 10;
+    -webkit-tap-highlight-color: transparent;
+
+    i {
+        color: #00ABC9; // Icône bleue turquoise au repos comme dans l'image
+        font-size: 24px;
+    }
+
+    // État d'enregistrement actif
+    &.recording {
+        background-color: #F25D5D; // Rouge pendant l'enregistrement
+        animation: pulse 1.5s infinite ease-in-out;
+
+        i {
+            color: white; // Icône blanche pendant l'enregistrement
+        }
+    }
+
+    &.cancelling {
+        background-color: #FB6C6C; // Rouge plus clair pour l'annulation
+
+        i {
+            color: white;
+        }
+    }
+
+    &.sending {
+        background-color: #00ABC9; // Bleu pour l'envoi
+
+        i {
+            color: white;
+        }
+    }
+}
+
+// Interface visible pendant l'enregistrement - style WhatsApp
+.recording-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background-color: #e8f7fb; // Fond bleu clair comme sur l'image
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    z-index: 5;
+    transition: height 0.3s ease;
+
+    // Zone d'annulation
+    .cancel-zone {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        background-color: #ffebeb;
+        border-bottom: 1px solid #ffcccc;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        transition: opacity 0.2s ease;
+        pointer-events: none;
+        z-index: 6;
+
+        &.active {
+            opacity: 1;
+        }
+
+        i {
+            color: #F25D5D;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .cancel-text {
+            color: #F25D5D;
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
+
+    // Interface principale d'enregistrement
+    .recording-interface {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        padding: 0 15px;
+        position: relative;
+        z-index: 5;
+
+        .slide-info {
+            position: absolute;
+            left: 15px;
+            color: #888;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+
+            i {
+                margin-right: 5px;
+            }
+        }
+
+        .time-display {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+
+            .timer {
+                font-size: 16px;
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 5px;
+            }
+
+            .waveform {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 20px;
+                width: 100%;
+                max-width: 180px;
+                gap: 2px;
+
+                .bar {
+                    width: 3px;
+                    height: 10px;
+                    background-color: #00ABC9;
+                    border-radius: 1px;
+
+                    @for $i from 1 through 15 {
+                        &:nth-child(#{$i}) {
+                            animation: waveform 1.2s infinite ease-in-out;
+                            animation-delay: $i * 0.1s;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // Affichage "Glisser pour annuler"
+    .slide-to-cancel {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        text-align: center;
+        color: #888;
+        font-size: 14px;
+        transition: transform 0.2s ease;
+        transform: translateY(0);
+
+        &.sliding {
+            transform: translateY(-10px);
+        }
+    }
+}
+
+// Styles pour le support mobile
+@media (max-width: 768px) {
+    .record-button {
+        width: 60px;
+        height: 60px;
+
+        i {
+            font-size: 24px;
+        }
+    }
+
+    .recording-overlay {
+        height: 130px; // Un peu plus haut sur mobile
+    }
+}
+
+// Styles spécifiques aux petits écrans
+@media (max-width: 480px) {
+    .recording-overlay {
+        .recording-interface {
+            .time-display {
+                .waveform {
+                    max-width: 150px;
+                }
+            }
+        }
+    }
+}
