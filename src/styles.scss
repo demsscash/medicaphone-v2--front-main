@@ -2,10 +2,18 @@
 @use './assets/scss/variables';
 @use './assets/scss/mixins';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
 .error-message {
-    color: red;
-    font-size: 12px;
-    margin-top: 5px;
-  }
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}

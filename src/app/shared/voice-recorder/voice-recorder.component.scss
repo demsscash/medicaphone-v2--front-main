@@ -1,4 +1,4 @@
-// src/app/shared/components/voice-recorder/voice-recorder.component.scss
+// src/app/shared/voice-recorder/voice-recorder.component.scss
 :host {
     display: block;
     width: 100%;
@@ -52,7 +52,7 @@
     height: 60px;
     border-radius: 50%;
     border: none;
-    background-color: white; // Bouton blanc au repos comme dans l'image
+    background-color: #e8f7fb; // Changé de white à #e8f7fb pour correspondre au fond de page
     display: flex;
     align-items: center;
     justify-content: center;
