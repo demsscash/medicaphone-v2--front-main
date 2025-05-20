@@ -1,0 +1,32 @@
+<div class="audio-player">
+    <!-- Détails de l'audio -->
+    <div class="audio-info">
+        <div class="time-display">
+            <span class="current-time">{{currentTime}}</span>
+            <span class="duration-separator">/</span>
+            <span class="duration">{{duration}}</span>
+        </div>
+    </div>
+
+    <!-- Barre de progression -->
+    <div class="progress-container" (click)="seekAudio($event)">
+        <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="progress"></div>
+        </div>
+    </div>
+
+    <!-- Contrôles -->
+    <div class="controls">
+        <!-- Bouton lecture/pause -->
+        <button class="play-button" (click)="togglePlay()">
+            <i class="fas" [class.fa-play]="!isPlaying" [class.fa-pause]="isPlaying"></i>
+        </button>
+
+        <!-- Visualisation de la forme d'onde -->
+        <div class="waveform">
+            <div *ngFor="let value of waveform; let i = index" class="waveform-bar"
+                [class.active]="(i / waveform.length) * 100 <= progress" [style.height.px]="4 + value * 12">
+            </div>
+        </div>
+    </div>
+</div>

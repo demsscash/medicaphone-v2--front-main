@@ -1,0 +1,138 @@
+/* src/app/shared/audio-player/audio-player.component.scss */
+.audio-player {
+    width: 100%;
+    padding: 10px;
+    border-radius: 12px;
+    background-color: #f9f9f9;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.audio-info {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-bottom: 6px;
+
+    .time-display {
+        font-size: 0.75rem;
+        color: #666;
+
+        .current-time {
+            font-weight: 500;
+        }
+
+        .duration-separator {
+            margin: 0 2px;
+        }
+
+        .duration {
+            opacity: 0.8;
+        }
+    }
+}
+
+.progress-container {
+    width: 100%;
+    cursor: pointer;
+    padding: 5px 0;
+
+    .progress-bar {
+        height: 4px;
+        width: 100%;
+        background-color: #e0e0e0;
+        border-radius: 2px;
+        position: relative;
+        overflow: hidden;
+
+        .progress-fill {
+            position: absolute;
+            height: 100%;
+            left: 0;
+            top: 0;
+            background-color: #00ABC9;
+            /* Couleur principale de votre application */
+            border-radius: 2px;
+            transition: width 0.1s linear;
+        }
+    }
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+
+    .play-button {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: none;
+        background-color: #00ABC9;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        flex-shrink: 0;
+        margin-right: 12px;
+
+        &:hover {
+            background-color: darken(#00ABC9, 5%);
+        }
+
+        i {
+            font-size: 14px;
+
+            /* Décaler légèrement l'icône de lecture pour un meilleur centrage visuel */
+            &.fa-play {
+                margin-left: 2px;
+            }
+        }
+    }
+
+    .waveform {
+        display: flex;
+        align-items: center;
+        height: 24px;
+        gap: 2px;
+        flex-grow: 1;
+
+        .waveform-bar {
+            flex-grow: 1;
+            background-color: #e0e0e0;
+            border-radius: 1px;
+            transition: background-color 0.2s ease;
+
+            &.active {
+                background-color: #00ABC9;
+            }
+        }
+    }
+}
+
+/* Animation pour montrer l'audio en cours de lecture */
+@keyframes equalizer {
+    0% {
+        height: 5px;
+    }
+
+    50% {
+        height: 15px;
+    }
+
+    100% {
+        height: 5px;
+    }
+}
+
+.isPlaying .waveform-bar.active {
+    animation: equalizer 1.5s infinite ease-in-out;
+
+    /* Ajouter un délai différent à chaque barre pour un effet d'onde */
+    @for $i from 1 through 50 {
+        &:nth-child(#{$i}) {
+            animation-delay: $i * 0.05s;
+        }
+    }
+}

@@ -1,10 +1,10 @@
-
-
-// src/app/features/home/home.component.ts
+// src/app/features/home/home.component.ts - fichier complet
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VoiceRecorderComponent } from '../../shared/voice-recorder/voice-recorder.component';
+import { AudioPlayerComponent } from '../../shared/audio-player/audio-player.component';
 import { AudioRecordingService } from '../../core/services/audio-recording.service';
+import { AudioStorageService, AudioNote } from '../../core/services/audio-storage.service';
 import { ToastService } from '../../core/services/toast.service';
 
 interface Note {
@@ -15,6 +15,7 @@ interface Note {
   audio: {
     duration: string;
     waveform: number[];
+    blob?: Blob;
     url?: string;
   };
   status: 'pending' | 'processed' | 'validated';
@@ -25,12 +26,14 @@ interface Note {
     name: string;
     avatar: string;
   };
+  isPlaying?: boolean;
+  showPlayer?: boolean;
 }
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, VoiceRecorderComponent],
+  imports: [CommonModule, VoiceRecorderComponent, AudioPlayerComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
@@ -53,7 +56,8 @@ export class HomeComponent implements OnInit {
         waveform: Array(50).fill(0).map(() => Math.random())
       },
       status: 'pending',
-      creationDate: '16/04/2025 - 10:06'
+      creationDate: '16/04/2025 - 10:06',
+      showPlayer: false
     },
     {
       id: 2,
@@ -70,7 +74,8 @@ export class HomeComponent implements OnInit {
       assignedTo: {
         name: 'Émilie Emma',
         avatar: 'assets/images/doctor-avatar.jpg'
-      }
+      },
+      showPlayer: false
     },
     {
       id: 3,
@@ -88,12 +93,17 @@ export class HomeComponent implements OnInit {
       assignedTo: {
         name: 'Émilie Emma',
         avatar: 'assets/images/doctor-avatar.jpg'
-      }
+      },
+      showPlayer: false
     }
   ];
 
+  // Suivi des enregistrements dans notre session actuelle
+  recentRecordings: Map<number, Blob> = new Map();
+
   constructor(
     private audioRecordingService: AudioRecordingService,
+    private audioStorageService: AudioStorageService,
     private toastService: ToastService
   ) { }
 
@@ -109,6 +119,40 @@ export class HomeComponent implements OnInit {
 
   toggleMenu(noteId: number): void {
     this.selectedNote = this.selectedNote === noteId ? null : noteId;
+  }
+
+  toggleAudioPlayer(noteId: number): void {
+    // Trouver la note correspondante
+    const note = this.notes.find(n => n.id === noteId);
+    if (note) {
+      // Basculer la visibilité du lecteur audio
+      note.showPlayer = !note.showPlayer;
+
+      // Si nous montrons le lecteur et qu'il n'y a pas encore de blob
+      if (note.showPlayer && !note.audio.blob) {
+        // Vérifier si nous avons un enregistrement temporaire pour cette note
+        if (this.recentRecordings.has(noteId)) {
+          note.audio.blob = this.recentRecordings.get(noteId)!;
+        } else {
+          // Dans une application réelle, nous chargerions l'audio depuis le serveur
+          // Simulons cela pour le moment
+          this.tryLoadAudioForNote(note);
+        }
+      }
+    }
+  }
+
+  // Méthode pour tenter de charger l'audio d'une note (simulation)
+  private tryLoadAudioForNote(note: Note): void {
+    // En réalité, nous ferions un appel API ici pour récupérer le fichier audio
+    // Pour la démonstration, nous allons simuler l'absence d'audio pour les notes prédéfinies
+
+    this.toastService.show('Cet enregistrement n\'est plus disponible en local.', 'error');
+
+    // Idéalement, l'API renverrait un Blob que nous assignerions ici:
+    // this.audioApiService.getAudioBlob(note.id).subscribe(blob => {
+    //   note.audio.blob = blob;
+    // });
   }
 
   getFilteredNotes(): Note[] {
@@ -145,37 +189,28 @@ export class HomeComponent implements OnInit {
   onRecordingComplete(audioBlob: Blob): void {
     console.log('Enregistrement terminé, taille:', audioBlob.size, 'bytes');
 
-    // Créer les métadonnées
-    const metadata = {
-      patientId: '', // Vide si patient non identifié
-      object: 'Non identifié',
-      creationDate: new Date().toISOString()
-    };
+    // Générer une forme d'onde aléatoire pour la démonstration
+    const waveform = Array(50).fill(0).map(() => Math.random());
 
-    // Envoi au serveur dans une implémentation réelle
-    // this.audioRecordingService.uploadAudioRecording(audioBlob, metadata).subscribe(
-    //   (response) => {
-    //     this.toastService.show('Enregistrement envoyé avec succès', 'success');
-    //     this.loadNotesByStatus('pending'); // Rafraîchir la liste des notes
-    //   },
-    //   (error) => {
-    //     console.error('Erreur lors de l\'envoi de l\'enregistrement:', error);
-    //     this.toastService.show('Erreur lors de l\'envoi de l\'enregistrement', 'error');
-    //   }
-    // );
+    // Création d'une nouvelle note avec l'audio enregistré
+    const newNoteId = Date.now();
 
-    // Afficher un message de succès pour la démonstration
-    this.toastService.show('Enregistrement envoyé avec succès', 'success');
+    // Stocker le blob dans notre map temporaire
+    this.recentRecordings.set(newNoteId, audioBlob);
 
-    // Ajouter un nouvel enregistrement à la liste pour la démonstration
+    // Calculer la durée réelle (ou l'estimer) - pour la démo, nous utilisons une durée fictive
+    const estimatedDuration = this.estimateAudioDuration(audioBlob);
+
+    // Créer une nouvelle note
     const newNote: Note = {
-      id: Date.now(), // ID temporaire
+      id: newNoteId,
       patient: 'Patient non identifié',
       patientAvatar: '',
       object: 'Non identifié',
       audio: {
-        duration: '00:07', // Durée fictive
-        waveform: Array(50).fill(0).map(() => Math.random())
+        duration: estimatedDuration,
+        waveform: waveform,
+        blob: audioBlob // Stocker directement le blob
       },
       status: 'pending',
       creationDate: new Date().toLocaleString('fr-FR', {
@@ -184,10 +219,31 @@ export class HomeComponent implements OnInit {
         year: 'numeric',
         hour: '2-digit',
         minute: '2-digit'
-      })
+      }),
+      showPlayer: false
     };
 
+    // Ajouter la note à notre liste
     this.notes.unshift(newNote);
+
+    // Afficher un message de succès
+    this.toastService.show('Enregistrement enregistré avec succès', 'success');
+
+    // Dans une application réelle, nous enverrions l'audio au serveur
+    // this.audioRecordingService.uploadAudioRecording(audioBlob, metadata).subscribe(...);
+  }
+
+  // Estimer la durée de l'audio - dans une application réelle, vous pourriez utiliser la Web Audio API
+  private estimateAudioDuration(blob: Blob): string {
+    // Pour la démonstration, nous retournons une durée fictive
+    // En réalité, vous pourriez utiliser la taille du blob et le débit pour estimer la durée
+    // Ou lire le fichier audio pour obtenir sa durée exacte
+
+    // Estimation très grossière basée sur la taille (1MB ≈ 1 minute pour l'audio webm à faible débit)
+    const minutes = Math.floor((blob.size / (1024 * 1024)) * 1);
+    const seconds = Math.floor((blob.size % (1024 * 1024)) / (1024 * 1024 / 60));
+
+    return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   }
 
   onRecordingCancelled(): void {
@@ -219,6 +275,11 @@ export class HomeComponent implements OnInit {
   }
 
   deleteNote(noteId: number): void {
+    // Supprimer l'enregistrement temporaire s'il existe
+    if (this.recentRecordings.has(noteId)) {
+      this.recentRecordings.delete(noteId);
+    }
+
     // Dans une implémentation réelle
     // this.audioRecordingService.deleteAudioNote(noteId.toString()).subscribe(
     //   () => {
