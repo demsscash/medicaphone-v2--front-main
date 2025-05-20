@@ -1,0 +1,45 @@
+<!-- src/app/features/home/home.component.html -->
+
+<div class="home-container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo-container">
+        <div class="logo-icon">
+          <div class="back"></div>
+          <p>Ajouter une <br />nouvelle note</p>
+        </div>
+      </div>
+      <button class="menu-button">
+        <i class="fas fa-bars"></i>
+      </button>
+    </header>
+
+
+    <!-- Note Cards -->
+    <div class="form-container">
+      <form name="" id="">
+        <div class="form-text">
+          <input type="text" name="" id="" placeholder="Patient" />
+          <button class="add-plus"></button>
+        </div>
+        <div class="form-text">
+          <input type="text" name="" id="" placeholder="Secrétaire" />
+        </div>
+        <div class="form-text">
+          <input type="text" name="" id="" placeholder="Objet" />
+        </div>
+        <div class="form-text">
+          <input type="text" name="" id="" placeholder="Enregistrement" />
+          <button class="record"></button>
+        </div>
+        <div class="text-ia">Conversion des notes audio générées par IA en notes écrites.</div>
+        <div class="form-textarea">
+            <angular-editor [(ngModel)]="noteContent" [config]="config" name="noteContent"></angular-editor>
+        </div>
+        <div class="form-button">
+          <button name="" id="">Enregister</button>
+        </div>
+      </form>
+    </div>
+
+  </div>

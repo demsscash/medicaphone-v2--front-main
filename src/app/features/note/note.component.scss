@@ -1,0 +1,435 @@
+// src/app/features/home/home.component.scss
+// Variables
+$primary-color: #00ABC9;
+$secondary-color: #333;
+$background-color: #e8f7fb;
+$background-menu-button: #E7F6FB;
+$white: #ffffff;
+$button-color: #00A6C7;
+$light-gray: #f8f9fa;
+$border-radius-small: 8px;
+$border-radius-large: 24px;
+$border-radius-cercle: 50%;
+$font-family-main: 'Roboto', sans-serif;
+$font-size-14: 14px;
+$font-weight-medium: 500;
+$transition-standard: all 0.3s ease;
+$spacing-xs: 5px;
+$spacing-sm: 10px;
+$spacing-md: 15px;
+$spacing-lg: 20px;
+$spacing-xl: 30px;
+
+
+*{
+  margin: 0;
+  padding: 0;
+  outline: none;
+}
+.angular-editor .angular-editor-wrapper .angular-editor-textarea:focus {
+    outline: none;
+  }
+// Main Container
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  /*background-color: $background-color;*/
+  padding: 0;
+  font-family: $font-family-main;
+  background: linear-gradient(189.6deg, #F3FDFE 1.41%, #D6F1F7 111.56%);
+}
+
+// Header
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-lg;
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    .logo-icon {
+      color: $primary-color;
+      font-size: 2rem;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      .back{
+        width: 36px;
+        height: 36px;
+        border-radius: $border-radius-cercle;
+        background: $white url("/assets/images/icon-back.svg") no-repeat center;
+      }
+      p{
+        color: #444444;
+        font-size: 18px;
+        line-height: 20px;
+        font-weight: 400;
+      }
+    }
+
+    .logo-text {
+
+      h1,
+      h2 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: $secondary-color;
+        line-height: 1.2;
+      }
+    }
+  }
+
+  .menu-button {
+    width: 56px;
+    height: 56px;
+    background: $background-menu-button url("/assets/images/icon-menu.svg") no-repeat center;
+    border: none;
+    border-radius: $border-radius-cercle;
+    font-size: 1.5rem;
+    color: $primary-color;
+    cursor: pointer;
+  }
+}
+
+// Tabs
+.tabs {
+  display: flex;
+  justify-content: space-around;
+  padding: $spacing-sm;
+  margin-bottom: $spacing-lg;
+
+  button {
+    padding: $spacing-md $spacing-xl;
+    border: none;
+    border-radius: 50px;
+    background-color: $white;
+    color: $secondary-color;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: $transition-standard;
+
+    &.active {
+      background-color: $primary-color;
+      color: $white;
+    }
+  }
+}
+
+// Notes Container
+.notes-container {
+  padding: 0 $spacing-lg;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  margin-bottom: $spacing-lg;
+}
+
+// Note Card
+.note-card {
+  background-color: $white;
+  border-radius: $border-radius-large;
+  padding: $spacing-lg;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+
+  .note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: $spacing-md;
+
+    .patient-info {
+      display: flex;
+      align-items: center;
+      gap: $spacing-md;
+
+      .patient-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        color: $secondary-color;
+      }
+    }
+
+    .menu-dots {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: $secondary-color;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 40px;
+      right: 15px;
+      background-color: $white;
+      border-radius: $border-radius-small;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      button {
+        display: flex;
+        align-items: center;
+        padding: $spacing-sm $spacing-lg;
+        border: none;
+        background: none;
+        text-align: left;
+        cursor: pointer;
+        transition: $transition-standard;
+
+        i {
+          margin-right: $spacing-sm;
+        }
+
+        &:hover {
+          background-color: $light-gray;
+        }
+
+        &.delete-btn {
+          color: $primary-color;
+        }
+
+        &.edit-btn {
+          color: $secondary-color;
+        }
+      }
+    }
+  }
+
+  .note-object {
+    margin-bottom: $spacing-md;
+    color: $secondary-color;
+  }
+
+  .audio-section {
+    margin-bottom: $spacing-md;
+
+    .audio-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: $spacing-xs;
+      color: $secondary-color;
+
+      .duration {
+        font-size: 0.8rem;
+        color: #999;
+      }
+    }
+
+    .waveform {
+      display: flex;
+      align-items: center;
+      height: 20px;
+      gap: 2px;
+
+      .waveform-bar {
+        width: 3px;
+        background-color: #ddd;
+        border-radius: 1px;
+
+        &.active {
+          background-color: $primary-color;
+        }
+      }
+    }
+  }
+
+  .note-type {
+    margin-bottom: $spacing-sm;
+    color: $secondary-color;
+
+    .ai-text {
+      color: $primary-color;
+    }
+  }
+
+  .date {
+    margin-bottom: $spacing-xs;
+    color: $secondary-color;
+  }
+
+  .assignee {
+    display: flex;
+    align-items: center;
+    margin-top: $spacing-lg;
+    gap: $spacing-sm;
+
+    .assignee-avatar {
+
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+
+  .not-assigned {
+    margin-top: $spacing-md;
+    color: $primary-color;
+  }
+
+  .download-btn {
+    width: 100%;
+    padding: $spacing-md;
+    margin-top: $spacing-lg;
+    background-color: $primary-color;
+    color: $white;
+    border: none;
+    border-radius: 50px;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    transition: $transition-standard;
+
+    &:hover {
+      background-color: #009ab5;
+      /* Slightly darker than primary color */
+    }
+  }
+}
+
+// Bottom Action Buttons
+.action-buttons {
+  margin-top: auto;
+  padding: $spacing-lg;
+  display: flex;
+  justify-content: space-around;
+
+  .action-btn {
+    width: 40%;
+    height: 60px;
+    background-color: $white;
+    border: none;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: $primary-color;
+    cursor: pointer;
+    transition: $transition-standard;
+
+    &:hover {
+      background-color: $light-gray;
+    }
+  }
+}
+
+// Form container-contact
+.form-container{
+  padding: $spacing-lg;
+  .form-text{
+    width: 100%;
+    height: 64px;
+    border-radius: 50px;
+    position: relative;
+    background: $white;
+    overflow: hidden;
+    margin-bottom: 10px;
+    input{
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 0 20px;
+      font-size: 16px;
+      color: #525151;
+    }
+    .add-plus{
+      width: 64px;
+      height: 64px;
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      border: 0;
+      background: url("/assets/images/icon-add.svg") no-repeat center;
+    }
+    .record{
+      min-width: 64px;
+      height: 64px;
+      font-size: 16px;
+      color: $white;
+      display: block;
+      position: absolute;
+      right: 0;
+      top: 0;
+      padding:0 17px 0 50px;
+      border: 0;
+      border-radius: 50px;
+      background: #00A6C7 url("/assets/images/icon-record.svg") no-repeat left 24px center;
+    }
+  }
+  .text-ia{
+    font-size: 16px;
+    color: #00A6C7;
+    padding: 20px 0 10px;
+  }
+  .form-textarea{
+    width: 100%;
+    min-height: 164px;
+    border-radius: 26px;
+    position: relative;
+    background: $white;
+    overflow: hidden;
+    margin-bottom: 30px;
+    textarea{
+      width: 100%;
+      height: 100%;
+      border: 0;
+      padding: 20px 20px;
+      font-size: 16px;
+      color: rgba(68, 68, 68, 0.3);
+    }
+  }
+  .form-button{
+    button{
+      width: 100%;
+      height: 68px;
+      font-size: 16px;
+      color: $white;
+      border: 0;
+      border-radius: 50px;
+      cursor: pointer;
+      background: $button-color;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .header {
+    padding: $spacing-md;
+  }
+
+  .tabs {
+    button {
+      padding: $spacing-sm $spacing-md;
+    }
+  }
+
+  .notes-container {
+    padding: 0 $spacing-md;
+  }
+
+  .action-buttons {
+    .action-btn {
+      width: 45%;
+    }
+  }
+}
